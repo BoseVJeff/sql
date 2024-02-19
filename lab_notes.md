@@ -742,7 +742,7 @@ SELECT UPPER(customer_name) FROM tbl_customer;
 * Display max and min purchase amount from table
 
 ```sql
-SELECT MAX(purch_amt), MIN(purch_amt) FROM tbl_order;
+SELECT MAX(purch_amt) AS maximum_balance, MIN(purch_amt) AS minimum_balance FROM tbl_order;
 ```
 
 * Display salesman name in init-cap
