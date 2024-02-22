@@ -750,3 +750,89 @@ SELECT MAX(purch_amt) AS maximum_balance, MIN(purch_amt) AS minimum_balance FROM
 ```sql
 SELECT INITCAP(name) FROM tbl_salesman;
 ```
+
+## Client/Master/Product
+
+> Constraints
+>
+> ```sql
+> CONSTRAINT c1 CHECK (rno LIKE 'R%')
+> ```
+> > Constraint names **must** be unique accross the entire database
+>
+> Default values
+>
+> ``sql
+> name VARCHAR2(30) DEFAULT 'default_name'
+> ```
+>
+> Apply as a part of the `CREATE TABLE` clause
+
+```sql
+CREATE TABLE client_master (
+    clientno VARCHAR2(25) PRIMARY KEY,
+    CONSTRAINT client_no_starts_with_C CHECK (clientno LIKE 'C%'),
+    name VARCHAR2(25) NOT NULL,
+    CONSTRAINT name_is_uppercase CHECK (name=UPPER(name)),
+    address1 VARCHAR2(30),
+    address2 VARCHAR2(30),
+    city VARCHAR2(25),
+    pincode NUMBER(6,0),
+    state VARCHAR2(30),
+    bal_due NUMBER(6,2)
+);
+
+CREATE TABLE product_master (
+    pno VARCHAR2(5) PRIMARY KEY,
+    CONSTRAINT pno_format CHECK (pno LIKE 'P____'),
+    description VARCHAR2(30) NOT NULL,
+    CONSTRAINT description_upper_first_char CHECK (ASCII(SUBSTR(description,1,1)) BETWEEN ASCII('A') AND ASCII('Z')),
+    profit_percent NUMBER(5,5),
+    unit_measure NUMBER(5,0),
+    quantity NUMBER(5,0),
+    sell_price NUMBER(10,2) NOT NULL,
+    CONSTRAINT sell_price_nonzero CHECK (NOT (sell_price=0)),
+    cost_price NUMBER(10,2) NOT NULL,
+    CONSTRAINT cost_price_nonzero CHECK (NOT (cost_price=0))
+);
+
+CREATE TABLE salesman_master (
+    smno VARCHAR2(25) PRIMARY KEY,
+    CONSTRAINT smno_format CHECK (smno LIKE 'S%'),
+    sname VARCHAR2(30),
+    address1 VARCHAR2(30),
+    address2 VARCHAR2(30),
+    city VARCHAR2(30),
+    pincode NUMBER(6),
+    state VARCHAR2(25),
+    sal_amount NUMBER(5,2) NOT NULL,
+    CONSTRAINT sal_amounnt_nonzero CHECK (NOT (sal_amount=0)),
+    target_no NUMBER(5,2) NOT NULL,
+    CONSTRAINT target_no_nonzero CHECK (NOT (target_no=0)),
+    ytd_sale NUMBER(5,2),
+    remarks VARCHAR2(30)
+);
+
+CREATE TABLE sales_order (
+    order_no VARCHAR2(25) PRIMARY KEY,
+    CONSTRAINT order_no_starts_w_O CHECK (order_no LIKE 'O%'),
+    ord_date DATE,
+    clientno VARCHAR2(25) REFERENCES client_master,
+    dely_address VARCHAR2(30),
+    smno VARCHAR2(25) REFERENCES salesman_master,
+    dely_type CHAR,
+    CONSTRAINT dely_type_values CHECK (dely_type IN ('P','F')),
+    dely_date DATE,
+    CONSTRAINT dely_date_logical CHECK (NOT (dely_date < ord_date)),
+    order_status VARCHAR2(10),
+    CONSTRAINT order_status_values CHECK (order_status IN ('in process','fulfilled', 'backorder', 'cancelled'))
+);
+
+CREATE TABLE sales_order_details (
+    order_no VARCHAR2(25) REFERENCES sales_order,
+    pno VARCHAR2(25) REFERENCES product_master,
+    qty NUMBER(5,0),
+    qty_disp NUMBER(5,0),
+    product_rate NUMBER(10,2)
+);
+```
