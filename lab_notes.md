@@ -779,7 +779,7 @@ CREATE TABLE client_master (
     city VARCHAR2(25),
     pincode NUMBER(6,0),
     state VARCHAR2(30),
-    bal_due NUMBER(6,2)
+    bal_due NUMBER(10,2)
 );
 
 CREATE TABLE product_master (
@@ -787,7 +787,7 @@ CREATE TABLE product_master (
     CONSTRAINT pno_format CHECK (pno LIKE 'P____'),
     description VARCHAR2(30) NOT NULL,
     CONSTRAINT description_upper_first_char CHECK (ASCII(SUBSTR(description,1,1)) BETWEEN ASCII('A') AND ASCII('Z')),
-    profit_percent NUMBER(5,5),
+    profit_percent NUMBER(10,2),
     unit_measure NUMBER(5,0),
     quantity NUMBER(5,0),
     sell_price NUMBER(10,2) NOT NULL,
@@ -805,11 +805,11 @@ CREATE TABLE salesman_master (
     city VARCHAR2(30),
     pincode NUMBER(6),
     state VARCHAR2(25),
-    sal_amount NUMBER(5,2) NOT NULL,
+    sal_amount NUMBER(10,2) NOT NULL,
     CONSTRAINT sal_amounnt_nonzero CHECK (NOT (sal_amount=0)),
-    target_no NUMBER(5,2) NOT NULL,
+    target_no NUMBER(10,2) NOT NULL,
     CONSTRAINT target_no_nonzero CHECK (NOT (target_no=0)),
-    ytd_sale NUMBER(5,2),
+    ytd_sale NUMBER(10,2),
     remarks VARCHAR2(30)
 );
 
@@ -835,4 +835,36 @@ CREATE TABLE sales_order_details (
     qty_disp NUMBER(5,0),
     product_rate NUMBER(10,2)
 );
+```
+
+```sql
+INSERT INTO client_master VALUES ('C00001', 'ALICE JOHNSON', '123 Main St', 'Apt 101', 'Anytown', 12345, 'California', 0.00);
+INSERT INTO client_master VALUES ('C00002', 'BOB SMITH', '456 Elm St', null, 'Metropolis', 98765, 'New York', 100.00);
+INSERT INTO client_master VALUES ('C00003', 'CHARLIE BROWN', '789 Oak Ave', null, 'Springfield', 54321, 'Illinois', 50.00);
+INSERT INTO client_master VALUES ('C00004', 'DEBBIE DAVIS', '012 Maple Dr', null, 'Sunnyvale', 87654, 'California', 25.00);
+INSERT INTO client_master VALUES ('C00005', 'EDWARD LEE', '345 Pine Blvd', null, 'Seattle', 23456, 'Washington', 75.00);
+
+INSERT INTO product_master VALUES ('P0001', 'Computer Mouse', 20, 1, 100, 25, 20);
+INSERT INTO product_master VALUES ('P0002', 'Keyboard', 15, 1, 50, 30.00, 25.00);
+INSERT INTO product_master VALUES ('P0003', 'Monitor', 30, 1, 25, 200.00, 150.00);
+INSERT INTO product_master VALUES ('P0004', 'Printer', 25, 1, 15, 150.00, 120.00);
+INSERT INTO product_master VALUES ('P0005', 'Paper Box', 10.00, 12, 200, 10.00, 9.00);
+
+INSERT INTO salesman_master VALUES ('S0001', 'Alice Johnson', '123 Main St', 'Apt 202', 'Anytown', 12345, 'California', 2000.00, 3000.00, 1500.00, 'Top performer');
+INSERT INTO salesman_master VALUES ('S0002', 'Bob Smith', '456 Elm St', null, 'Metropolis', 98765, 'New York', 1500.00, 2500.00, 1000.00, 'Needs Improvement');
+INSERT INTO salesman_master VALUES ('S0003', 'Charles Brown', '789 Oak Ave', null, 'Springfield', 54321, 'Illinois', 1800.00, 2800.00, 1200.00, 'Consistent Performer');
+INSERT INTO salesman_master VALUES ('S0004', 'Debbie Davis', '012 Maple Dr', null, 'Sunnyvale', 87654, 'California', 1200.00, 2000.00, 800.00, 'New Hire');
+INSERT INTO salesman_master VALUES ('S0005', 'Edward Lee', '345 Pine Blvd', null, 'Seattle', 23456, 'Washington', 1700.00, 2700.00, 1300.00, 'Exceeding expectations');
+
+INSERT INTO sales_order VALUES ('O00001', '22-Feb-2024', 'C00001', '123 Main St', 'S0001', 'P', '01-Mar-2024', 'in process');
+INSERT INTO sales_order VALUES ('O00002', '21-Feb-2024', 'C00002', '456 Elm St', 'S0002', 'F', '25-Feb-2024', 'fulfilled');
+INSERT INTO sales_order VALUES ('O00003', '20-Feb-2024', 'C00003', '789 Oak Ave', 'S0003', 'P', '05-Mar-2024', 'backorder');
+INSERT INTO sales_order VALUES ('O00004', '19-Feb-2024', 'C00004', '012 Maple Dr', 'S0004', 'P', '29-Feb-2024', 'cancelled');
+INSERT INTO sales_order VALUES ('O00005', '18-Feb-2024', 'C00005', '345 Pine Blvd', 'S0005', 'F', '23-Feb-2024', 'in process');
+
+INSERT INTO sales_order_details VALUES ('O00001', 'P0001', 2, 0, 25.00);
+INSERT INTO sales_order_details VALUES ('O00002', 'P0002', 1, 0, 30.00);
+INSERT INTO sales_order_details VALUES ('O00003', 'P0003', 1, 1, 200.00);
+INSERT INTO sales_order_details VALUES ('O00004', 'P0004', 1, 0, 150.00);
+INSERT INTO sales_order_details VALUES ('O00005', 'P0005', 5, 2, 10.00);
 ```
