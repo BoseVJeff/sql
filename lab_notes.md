@@ -868,3 +868,79 @@ INSERT INTO sales_order_details VALUES ('O00003', 'P0003', 1, 1, 200.00);
 INSERT INTO sales_order_details VALUES ('O00004', 'P0004', 1, 0, 150.00);
 INSERT INTO sales_order_details VALUES ('O00005', 'P0005', 5, 2, 10.00);
 ```
+
+### Questions
+
+* Find the name of all clients having `a` as the second letter in their names
+
+```sql
+SELECT name FROM client_master WHERE name LIKE '_a%';
+```
+
+* Find out the clients who stay in a city whose second letter is `a`
+
+```sql
+SELECT name FROM client_master WHERE city LIKE '_a%';
+```
+
+* Find out the list of all clients who stay in `Bombay` or `Delhi`
+
+```sql
+SELECT * FROM client_master WHERE city IN ('Bombay', 'Delhi');
+```
+
+* Find list of all clients whose `bal_due` is greater than 10000
+
+```sql
+SELECT * FROM client_master WHERE (bal_due>10000);
+```
+
+* Display order information for cno `C0001` and `C0002`
+
+```sql
+SELECT * FROM sales_order WHERE clientno IN ('C0001', 'C0002');
+```
+
+* Find products whose selling price is greater than `2000` and less than or equal to `5000`
+
+```sql
+SELECT * FROM product_master WHERE ((sell_price>2000) AND (sell_price<=5000));
+```
+
+* Find products whose selling price is more than `1500`
+
+Calculate a new selling price as `0.15 * selling price` and rename the new cloumn in the above query as `new_price`.
+
+```sql
+SELECT pno, sell_price, sell_price*0.15 AS new_price FROM product_master WHERE sell_price>1500;
+```
+
+* List the names, city and state of clients who are not in the state of `Maharashtra`
+
+```sql
+SELECT name, city, state FROM client_master WHERE NOT (city='Maharashtra');
+```
+
+* Count the total number of orders
+
+```sql
+SELECT COUNT(order_no) FROM sales_order;
+```
+
+* Calculate the average price of all products
+
+```sql
+SELECT AVG(sell_price) FROM product_master;
+```
+
+* Determine the max and min price product price, rename output as `max_price` and `min_price` respectively
+
+```sql
+SELECT MAX(sell_price) AS max_price, MIN(sell_price) AS min_price FROM product_master;
+```
+
+* Count the number of products having price greater than or equal to 1500
+
+```sql
+SELECT COUNT(pno) FROM product_master WHERE sell_price>1500;
+```
