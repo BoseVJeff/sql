@@ -987,4 +987,16 @@ SELECT clientno, name, address1, address2, city, pincode FROM client_master WHER
 SELECT smno, sname, address1, city, pincode FROM salesman_master WHERE sname IN ('Kiran', 'Manish', 'Ram', 'Rahul');
 ```
 
-* 
+* Retrieve the sno sname, add1, city, pincode from the salesman where neither Kiran or Mansih or Ram or Rahul.
+
+```sql
+SELECT smno, sname, address1, city, pincode FROM salesman_master WHERE sname NOT IN ('Kiran', 'Manish', 'Ram', 'Rahul');
+```
+
+* Display today's date
+
+```sql
+SELECT CURRENT_DATE FROM DUAL;
+```
+
+* Input any three negative values in qty_disp in sales order details
