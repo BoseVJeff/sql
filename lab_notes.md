@@ -944,3 +944,47 @@ SELECT MAX(sell_price) AS max_price, MIN(sell_price) AS min_price FROM product_m
 ```sql
 SELECT COUNT(pno) FROM product_master WHERE sell_price>1500;
 ```
+
+* Display structure of `sales_order` table
+
+```sql
+DESC sales_order;
+```
+
+* Retrieve the contents of the columns `pno`, `description`, `profit`, `sellprice` from table `product_master` where the values contained in the field profitper is between 10 and 20 both inclusive
+
+```sql
+SELECT pno, description, sell_price-cost_price AS profit, sell_price FROM product_master WHERE profit_percent>=10 AND profit_percent<=20;
+```
+
+* Retrieve specified client information for the clients who are not in Bombay or delhi
+
+```sql
+SELECT * FROM client_master WHERE city NOT IN ('Delhi', 'Bombay');
+```
+
+* Display avg and sum of total product rate, display maximum and minimum quantity from sales order details
+
+```sql
+SELECT AVG(product_rate) AS "Average Product Rate", SUM(product_rate) AS "Total Product Rate" FROM sales_order_details;
+```
+
+* Create view from client master where add clientno, name and bal whose bal is greater than 15000
+
+```sql
+SELECT clientno, name, bal_due FROM client_master WHERE bal_due>15000;
+```
+
+* Retrieve the client information like cno,name,add1,add2,city,pincode for all the clients where the field pincode has the value 400054 or 40057.
+
+```sql
+SELECT clientno, name, address1, address2, city, pincode FROM client_master WHERE pincode IN (40054, 40057);
+```
+
+* Retrieve the sno sname, addl, from the salesman where either Kiran or Mansih or Ram or Rahul.
+
+```sql
+SELECT smno, sname, address1, city, pincode FROM salesman_master WHERE sname IN ('Kiran', 'Manish', 'Ram', 'Rahul');
+```
+
+* 
