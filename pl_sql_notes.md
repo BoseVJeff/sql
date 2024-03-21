@@ -87,8 +87,3 @@ dbms_output.put_line('The value of a is ' || a);
 dbms_output.put_line('The value of b is ' || b);
 END;
 ```
-
-
-```sql
-
-```
