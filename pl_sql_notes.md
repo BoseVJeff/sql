@@ -87,3 +87,102 @@ dbms_output.put_line('The value of a is ' || a);
 dbms_output.put_line('The value of b is ' || b);
 END;
 ```
+
+* Area of circle
+
+```sql
+DECLARE
+r NUMBER;
+ar NUMBER;
+pi NUMBER;
+BEGIN
+pi:=3.14;
+r:=10;
+ar:=pi*POWER(r,2);
+dbms_output.put_line('Area is '||ar);
+END;
+```
+
+* Cube of number
+
+```sql
+DECLARE
+a NUMBER;
+r NUMBER;
+BEGIN
+a:=10;
+r:=POWER(a,3);
+dbms_output.put_line('Cube of '|| a ||' is ' || r);
+END;
+```
+
+* For Loop
+
+```sql
+DECLARE
+a NUMBER;
+BEGIN
+FOR a in 1..10 LOOP
+dbms_output.put_line('Value of a is '||a);
+END LOOP;
+END;
+```
+
+`If` conditions: `IF...THEN...END IF`, `IF...THEN...ELSE...END IF`, `IF...THEN...ELSIF...THEN...ELSE...END IF`
+
+* Check if number is positive, negative, or zero
+
+```sql
+DECLARE
+a NUMBER;
+BEGIN
+a:=5;
+IF a>0 THEN
+dbms_output.put_line('+ve');
+ELSIF a<0 THEN
+dbms_output.put_line('-ve');
+ELSE
+dbms_output.put_line('zero');
+END IF;
+END;
+```
+
+* Input a number and check if number is even or odd
+
+```sql
+DECLARE
+a NUMBER;
+BEGIN
+a:=10;
+IF MOD(a,2)=0 THEN
+dbms_output.put_line('Even');
+ELSE
+dbms_output.put_line('Odd');
+END IF;
+END;
+```
+
+* Input three numbers and find the maximum among them
+
+```sql
+DECLARE
+n1 NUMBER;
+n2 NUMBER;
+n3 NUMBER;
+BEGIN
+n1:=10;
+n2:=20;
+n3:=15;
+IF n1>=n2 THEN
+    IF n1>=n3 THEN
+    dbms_output.put_line('n1 is largest');
+    END IF;
+ELSIF n2>=n3 THEN
+    IF n2>=n1 THEN
+    dbms_output.put_line('n2 is largest');
+    END IF;
+ELSE
+dbms_output.put_line('n3 is largest');
+END IF;
+END;
+```
