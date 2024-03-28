@@ -186,3 +186,9 @@ dbms_output.put_line('n3 is largest');
 END IF;
 END;
 ```
+
+* Perform arithmetic calculator using menu
+
+* Input age and display of person is eligible for voting or not.
+
+* Input a character and display if character is vowel or consonant.
