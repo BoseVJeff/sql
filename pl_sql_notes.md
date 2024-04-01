@@ -284,3 +284,25 @@ BEGIN
     END LOOP;
 END;
 ```
+
+* Implement Fibonacci series
+
+```sql
+DECLARE
+n1 int;
+n2 int;
+n3 int;
+cnt int;
+BEGIN
+cnt:=10;
+n1:=0;
+n2:=1;
+dbms_output.put_line(n1);
+FOR i IN 1..cnt LOOP
+dbms_output.put_line(n2);
+n3:=n1+n2;
+n1:=n2;
+n2:=n3;
+END LOOP;
+END;
+```
