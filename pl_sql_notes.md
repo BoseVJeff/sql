@@ -192,3 +192,95 @@ END;
 * Input age and display of person is eligible for voting or not.
 
 * Input a character and display if character is vowel or consonant.
+
+* Basic Loop
+
+```sql
+DECLARE
+    i int;
+BEGIN
+    i:=1;
+    LOOP
+        IF i>10 THEN
+            EXIT;
+        END IF;
+        dbms_output.put_line(i);
+        i:=i+1;
+    END LOOP;
+END;
+```
+
+* Print even numbers using loops from 2 to 10
+
+```sql
+DECLARE
+    i int;
+BEGIN
+    i:=0;
+    LOOP
+        i:=i+2;
+        dbms_output.put_line(i);
+        EXIT WHEN i>=10;
+    END LOOP;
+END;
+```
+
+* Print numbers from 1 to 10 using `while` loop
+
+```sql
+DECLARE
+	i int;
+BEGIN
+	i:=1;
+	WHILE i<=10 LOOP
+		dbms_output.put_line(i);
+		i:=i+1;
+	END LOOP;
+END;
+```
+
+* Print numbers from 1 to 10 and from 10 to 1 using `for` loop
+
+```sql
+DECLARE
+a NUMBER;
+BEGIN
+FOR a in 1..10 LOOP
+dbms_output.put_line(a);
+END LOOP;
+FOR a in REVERSE 1..10 LOOP
+dbms_output.put_line(a);
+END LOOP;
+END;
+```
+
+* Print first 100 even numbers using `while` and `for` loops
+
+```sql
+DECLARE
+num int;
+cnt int;
+BEGIN
+num:=2;
+FOR cnt IN 1..100 LOOP
+dbms_output.put(num||' ');
+num:=num+2;
+END LOOP;
+dbms_output.new_line;
+END;
+```
+
+```sql
+DECLARE
+    num int;
+    cnt int;
+BEGIN
+    cnt:=0;
+    num:=2;
+    WHILE cnt<100 LOOP
+        dbms_output.put_line(num);
+        cnt:=cnt+1;
+        num:=num+2;
+    END LOOP;
+END;
+```
