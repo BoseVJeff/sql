@@ -306,3 +306,35 @@ n2:=n3;
 END LOOP;
 END;
 ```
+
+* Sequences
+
+> Syntax
+>
+> ```sql
+> CREATE SEQUENCE <sequence_name>
+> START WITH 1
+> INCREMENT BY 1
+> MINVALUE 1
+> MAXVALUE 100;
+> ```
+
+* Create a table with roll number and name fields. Enter 10 values using a sequence.
+
+```sql
+CREATE TABLE tbl1 (
+    rno NUMBER(4),
+    name VARCHAR2(30)
+);
+
+CREATE SEQUENCE seq1
+START WITH 1
+INCREMENT BY 1
+MINVALUE 1
+MAXVALUE 10;
+
+INSERT INTO tb1 VALUES (seq1.nextval, 'aa');
+INSERT INTO tb1 VALUES (seq1.nextval, 'ee');
+INSERT INTO tb1 VALUES (seq1.nextval, 'rr');
+INSERT INTO tb1 VALUES (seq1.nextval, 'yy');
+```
