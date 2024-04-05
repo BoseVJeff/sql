@@ -338,3 +338,41 @@ INSERT INTO tb1 VALUES (seq1.nextval, 'ee');
 INSERT INTO tb1 VALUES (seq1.nextval, 'rr');
 INSERT INTO tb1 VALUES (seq1.nextval, 'yy');
 ```
+
+* TCL Commands in SQL
+
+```sql
+SAVEPOINT sp1;
+```
+```text
+Some commands
+```
+```sql
+ROLLBACK sp1;
+```
+Optionally, rollback all the way
+```sql
+ROLLBACK;
+```
+
+* Input two values `max` and `min`. If `max<min`, swap the two values and output the variables.
+
+```sql
+DECLARE
+    mx NUMBER;
+    mn NUMBER;
+    tmp NUMBER;
+BEGIN
+    mx:=8;
+    mn:=5;
+    dbms_output.put_line('Input Max: '||mx);
+    dbms_output.put_line('Input Min: '||mn);
+    IF mx<mn THEN
+        tmp:=mx;
+        mx:=mn;
+        mn:=tmp;
+    END IF;
+    dbms_output.put_line('Min: '||mn);
+    dbms_output.put_line('Max: '||mx);
+END;
+```
