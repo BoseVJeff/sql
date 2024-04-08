@@ -376,3 +376,51 @@ BEGIN
     dbms_output.put_line('Max: '||mx);
 END;
 ```
+
+* Write a PL/SQL block that will accept an account number from the user and debit an amount of Rs 2000 from the account. If account has a minimum balance of Rs 500 after the amount is debited then display message insufficent balance.
+
+    Table: Accounts
+
+    Attributes: `acc_id`, `name`, `bal`
+
+    Records:
+
+    |acc_id|name|bal|
+    |------|----|---|
+    |1|Anuj|250|
+    |2|Robert|8000|
+    |3|Mira|5000|
+    |4|Sunita|15000|
+    |5|Nita|10000|
+
+```sql
+CREATE TABLE accounts (
+    acc_id NUMBER(2) PRIMARY KEY,
+    name VARCHAR2(10),
+    bal NUMBER(6)
+);
+
+INSERT INTO accounts VALUES (1, 'Anuj', 250);
+INSERT INTO accounts VALUES (2, 'Robert', 8000);
+INSERT INTO accounts VALUES (3, 'Mira', 5000);
+INSERT INTO accounts VALUES (4, 'Sunita', 15000);
+INSERT INTO accounts VALUES (5, 'Nita', 10000);
+
+DECLARE
+    ac_bal NUMBER(5);
+    ano NUMBER(4);
+    db_amt NUMBER(5):=2000;
+    min_bal CONSTANT NUMBER(5):=500;
+BEGIN
+    -- Change this to whatever ID
+    ano:=1;
+    SELECT bal INTO ac_bal FROM accounts WHERE acc_id=ano;
+    IF ac_bal >= min_bal THEN
+        UPDATE accounts SET bal=bal-db_amt WHERE acc_id=ano;
+        commit;
+        dbms_output.put_line('debited');
+    ELSE
+        dbms_output.put_line('insufficent balance');
+    END IF;
+END;
+```
